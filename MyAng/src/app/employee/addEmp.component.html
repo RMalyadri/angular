@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    
+    <h2>Employee Form</h2>
+    <div class="container">
+            <div *ngIf="statusMessage" class="alert alert-danger" style="width: 103.5%;text-align: center;margin: 0px -19px;" > 
+                    {{statusMessage}}
+            </div>
+        <form *ngIf="hideForm" [formGroup]="regFrom" (ngSubmit)="submitForm(regFrom.value)">
+            
+            <div class="row" *ngIf="isEidVisible">
+                <div class="col-25">
+                    <label for="eid">EmplyeeId</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="eid" formControlName="eid" [attr.readonly]= "true" >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">First Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="fname" formControlName="firstName" placeholder="Your First name">
+                    <div class="alert alert-danger"
+                        *ngIf="regFrom.controls['firstName'].touched && !regFrom.controls['firstName'].valid">
+                        <span *ngIf="regFrom.controls['firstName'].hasError('required') ">
+                            First name is required
+                        </span>
+                        <span *ngIf="regFrom.controls['firstName'].hasError('minlength') ">
+                            Min length is {{minLengthValue}}
+                        </span>
+                        <span *ngIf="regFrom.controls['firstName'].hasError('maxlength') ">
+                            max length is {{maxLengthValue}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="lastName" formControlName="lastName" placeholder="Your last name..">
+                    <div class="alert alert-danger"
+                        *ngIf="regFrom.controls['lastName'].touched && !regFrom.controls['lastName'].valid">
+                        <span *ngIf="regFrom.controls['lastName'].hasError('required') ">
+                            Last name is required
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="gender">Gender</label>
+                </div>
+                <div class="col-75">
+                    <div class="form-check-inline" *ngFor="let gender of empGender">
+                        <input type="radio" formControlName="gender" [value]="gender.value">
+                        {{gender.dis}}
+
+                    </div>
+                    <div class="alert alert-danger" *ngIf=" regFrom.controls['gender'].touched && regFrom.controls['gender'].invalid">
+                        <span *ngIf="regFrom.controls['gender'].hasError('required') ">
+                            Gender is required
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+    <div class="col-25">
+      <label for="country">Country</label>
+    </div>
+    <div class="col-75">
+      <select id="country" name="country">
+        <option value="australia">Australia</option>
+        <option value="canada">Canada</option>
+        <option value="usa">USA</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="subject">Subject</label>
+    </div>
+    <div class="col-75">
+      <textarea id="subject" name="subject" placeholder="Write something.."></textarea>
+    </div>
+  </div> -->
+            <div class="row" style="margin: auto 476px;">
+                <input type="submit" class="btn btn-success" [disabled]="regFrom.invalid" [value]="buttonName" (click)="statusMessage=''" />
+                <input *ngIf="clearBtnHide" type="reset" class="btn btn-success" value="Clear" style="margin: 0px 5px;"/> 
+                <a  *ngIf="cancelBtnHide" routerLink="/allEmp" class="btn btn-success"  style="margin: 0px 5px;" role="button">Cancel</a>
+            </div>
+           
+        </form>
+       
+    </div>
+   
+</body>
+
+</html>

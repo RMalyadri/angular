@@ -1,0 +1,71 @@
+<ng4-loading-spinner> </ng4-loading-spinner>
+
+<emp-search (seachValueChanged)="searchEmployeeList($event)">
+</emp-search>
+<div class="alert alert-info nav-bar-size">
+        <strong>Employee Information Details</strong>
+      </div>
+<div class="container">
+        
+    <div>
+        <input *ngIf="employeeList?.length > 0" type="text" name ="search" [(ngModel)]="search" placeholder="Search the table data" style="  width: 26%;margin: 0px 0px 4px 0px;padding: 5px;" />
+        <emp-filter [style.margin.px]="employeeList?.length > 0 ? '84' : '375'" [allCount]="getEmployeeCount()" [maleCount]="getMaleEmployeeCount()"
+         [femaleCount]="getFemaleEmployeeCount()" (filterValueChange)="filterValueFromChild($event)"></emp-filter>
+
+    </div>
+    <div *ngIf="statusMessage" class="alert alert-danger"
+        style="width: 100%;margin: 0px 110px 10px 0px;text-align: center;">
+        {{statusMessage}}
+    </div> 
+    
+   
+    <table class="table table-bordered tableBodyScroll" *ngIf="employeeList?.length > 0 ;else else_block">
+
+        <thead>
+            <tr>
+                <th>EmployeeId</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Gender</th>
+                <th><input type="checkbox" [(ngModel)]="topCheckedValue" (change)="selectAllForDelete($event)"/>DeleteAll</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let emplyee of employeeList | employeeSearchFilter:search">
+                <td>{{emplyee.eid}}</td>
+                <td>{{emplyee.firstName }}</td>
+                <td>{{emplyee.lastName }}</td>
+                <td>{{emplyee.gender}}</td>
+                <td style="width: 203px;">
+                    <div>
+                        <input type="checkbox" [checked]="checkedValue" name="empId" value="{{emplyee.eid}}" (change)="updateCheckedOptions($event)" />
+                        <span class="badge badge-pill badge-danger">Delete</span>
+                        <span class="badge badge-pill badge-success btn-success " role="button" style="margin: 0px 14px;cursor: pointer;" (click)="editEmployee(emplyee.eid)">Edit</span>
+                    </div>
+                 
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+    <ul class="pagination" style=" margin: 0px 348px -18px;" *ngIf="employeeList?.length > 0">
+        <li [class]="prevButtonDisable"><a class="page-link" routerLink="/allEmp"  (click)="prevPagination()">Previous</a></li>
+        <span *ngFor="let pageIndex of totalPages;" >
+            <li class="page-item" [ngClass]="{'active':pageIndex==page}">
+                <a class="page-link" (click)="setPaginationPageIndex(pageIndex,$event)" href="#">{{pageIndex+1}}</a>
+            </li>
+        </span>
+        <li [class]="nextButtonDisable"><a class="page-link" routerLink="/allEmp" (click)="nextPagination()">Next</a></li>
+      </ul> 
+</div>
+<ng-template #else_block>
+    <br />
+    <p style="color:red;margin:0% 376px"> No Empleyee Data Found </p>
+
+</ng-template>
+<div>
+    <a class="btn btn-primary center_btn" routerLink="/saveEmp" role="button">Add Employee</a>
+    <button type="button" class="btn btn-danger center_btn"  style="margin:-493px" (click)="deleteEmp()" >Delete Employee</button>
+</div>
+

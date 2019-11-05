@@ -1,0 +1,18 @@
+ <div class="form-check-inline ">
+      <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="empFilter" value="all" [(ngModel)]="filterValue" checked (change)="onFilterValueChange()">All({{allCount}})
+        </label>
+      </div>
+      <div class="form-check-inline" >
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="empFilter"  value="M" [(ngModel)]="filterValue"  (change)="onFilterValueChange()" >Male({{maleCount}})
+        </label>
+      </div>
+      <div class="form-check-inline disabled">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="empFilter" value="F" [(ngModel)]="filterValue"  (change)="onFilterValueChange()" >Female({{femaleCount}})
+        </label>
+ </div>
+
+
+ 

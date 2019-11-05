@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark nav-bar-size">
+ 
+  <a class="navbar-brand" href="#"><img  src="assets/images/loggo.png" alt="image" style="width:67px"></a>
+
+
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a  *ngIf="showMenu" class="nav-link" routerLink="/dashboard">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link 2</a>
+    </li>
+
+    <li class="nav-item dropdown"  *ngIf="showMenu" >
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Employee Details
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" routerLink="/saveEmp">Add</a>
+        <a class="dropdown-item" routerLink="/allEmp">All</a>
+      </div>
+      
+    </li>
+  </ul>
+  <a *ngIf="showMenu" routerLink="/logout" class="btn btn-info"  role="button">Logout</a>
+  <div>
+    <button  style="margin:0px 8px" *ngIf="showMenu" class="btn btn-info navbar-btn">LoginUser: {{userName}}</button>
+  </div>
+
+</nav>
+<br>
+<router-outlet></router-outlet>
+
+
+<div *ngIf="false" cutom-dir>
+    <h3>{{title}}</h3>
+</div>

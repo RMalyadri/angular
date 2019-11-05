@@ -1,0 +1,25 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Sign In</h5>
+                        <form class="form-signin"  (ngSubmit)="loginForm.form.valid && login(loginForm)" #loginForm="ngForm" novalidate>
+                            <div *ngIf="errorResponse?.error" class="alert alert-danger error-msg-rad">{{errorResponse?.error?.message}}</div>
+                            <div class="form-label-group">
+                                <input type="text" name="userId" id="inputEmail" class="form-control" placeholder="Username" required minlength="4" [(ngModel)]='loginDet.userId' #userId="ngModel">
+                            </div>
+                            <div *ngIf="loginForm.submitted && userId.touched &&  !userId.valid " class="alert alert-danger error-msg-rad">Username is required(alteast 4 charactors)</div>
+                            <div class="form-label-group">
+                                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" minlength="4"  required #password="ngModel" [(ngModel)]='loginDet.password' >
+                            </div>
+                            <div *ngIf="loginForm.submitted && !password.valid && password.touched " class="alert alert-danger error-msg-rad">Password is required(alteast 4 charactors) </div>
+                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" style="padding: 8px;">Sign in</button>
+                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
